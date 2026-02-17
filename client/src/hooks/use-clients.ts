@@ -12,7 +12,13 @@ export function useClients() {
   return useQuery({
     queryKey: [api.clients.list.path],
     queryFn: async () => {
-      const res = await fetch(api.clients.list.path, { credentials: "include" });
+      const res = await fetch(api.clients.list.path, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
+        credentials: "include"
+      });
       if (!res.ok) throw new Error("Failed to fetch clients");
       return api.clients.list.responses[200].parse(await res.json());
     },
@@ -27,7 +33,10 @@ export function useCreateClient() {
     mutationFn: async (data: ClientInput) => {
       const res = await fetch(api.clients.create.path, {
         method: api.clients.create.method,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
         body: JSON.stringify(data),
         credentials: "include",
       });

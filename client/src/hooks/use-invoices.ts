@@ -162,7 +162,10 @@ export function useUpdateInvoice() {
     mutationFn: async ({ id, data }: { id: number; data: any }) => {
       const res = await fetch(`${API_URL}/invoices/${id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
         body: JSON.stringify(data),
         credentials: "include",
       });

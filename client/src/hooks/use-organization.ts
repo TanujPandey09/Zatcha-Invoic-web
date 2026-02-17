@@ -40,7 +40,10 @@ export function useUpdateOrganization() {
     }) => {
       const res = await fetch(`${API_URL}/api/organization`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
         body: JSON.stringify(data),
         credentials: "include",
       });

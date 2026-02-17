@@ -33,6 +33,10 @@ export default function ZATCACompliancePage() {
         queryKey: [`${API_URL}/api/zatca/compliance-status`],
         queryFn: async () => {
             const res = await fetch(`${API_URL}/api/zatca/compliance-status`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
                 credentials: "include",
             });
             return res.json();
@@ -44,6 +48,10 @@ export default function ZATCACompliancePage() {
         queryKey: [`${API_URL}/api/invoices`],
         queryFn: async () => {
             const res = await fetch(`${API_URL}/api/invoices`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
                 credentials: "include",
             });
             return res.json();
@@ -56,6 +64,10 @@ export default function ZATCACompliancePage() {
         queryFn: async () => {
             if (!selectedInvoiceId) return null;
             const res = await fetch(`${API_URL}/api/zatca/qrcode/${selectedInvoiceId}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
                 credentials: "include",
             });
             return res.json();
@@ -67,6 +79,10 @@ export default function ZATCACompliancePage() {
     const processInvoice = useMutation({
         mutationFn: async (invoiceId: number) => {
             const res = await fetch(`${API_URL}/api/zatca/process/${invoiceId}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
                 method: "POST",
                 credentials: "include",
             });
@@ -94,6 +110,10 @@ export default function ZATCACompliancePage() {
     const submitToZATCA = useMutation({
         mutationFn: async (invoiceId: number) => {
             const res = await fetch(`${API_URL}/api/zatca/submit/${invoiceId}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
                 method: "POST",
                 credentials: "include",
             });
@@ -115,8 +135,11 @@ export default function ZATCACompliancePage() {
     const validateVAT = useMutation({
         mutationFn: async (vatNumber: string) => {
             const res = await fetch(`${API_URL}/api/zatca/validate-vat`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
                 credentials: "include",
                 body: JSON.stringify({ vatNumber }),
             });

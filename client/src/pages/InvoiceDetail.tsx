@@ -27,6 +27,10 @@ export default function InvoiceDetail() {
         queryKey: [`/api/zatca/qrcode/${id}`],
         queryFn: async () => {
             const res = await fetch(`${API_URL}/api/zatca/qrcode/${id}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
                 credentials: "include",
             });
             return res.json();

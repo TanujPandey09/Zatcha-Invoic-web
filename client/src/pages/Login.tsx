@@ -108,6 +108,8 @@ export default function AuthPage() {
       });
 
       await queryClient.refetchQueries({ queryKey: [`${API_URL}/api/auth/me`] });
+      localStorage.setItem('token', data.token);
+
 
       setTimeout(() => {
         navigate("/dashboard");
@@ -125,6 +127,7 @@ export default function AuthPage() {
 
   const handleSSO = (provider: string) => {
     window.location.href = `${API_URL}/api/auth/${provider}`;
+
   };
 
   return (

@@ -32,6 +32,10 @@ export default function ReportsPage() {
     queryKey: [`${API_URL}/api/reports/monthly`, selectedYear],
     queryFn: async () => {
       const res = await fetch(`${API_URL}/api/reports/monthly?year=${selectedYear}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
         credentials: "include",
       });
       return res.json();
@@ -43,6 +47,10 @@ export default function ReportsPage() {
     queryKey: [`${API_URL}/reports/dashboard`],
     queryFn: async () => {
       const res = await fetch(`${API_URL}/api/reports/dashboard`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
         credentials: "include",
       });
       return res.json();
@@ -55,7 +63,13 @@ export default function ReportsPage() {
     queryFn: async () => {
       const res = await fetch(
         `${API_URL}/api/reports/quarterly?year=${selectedYear}&quarter=${selectedQuarter}`,
-        { credentials: "include" }
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+          },
+          credentials: "include",
+        }
       );
       return res.json();
     },
@@ -66,6 +80,10 @@ export default function ReportsPage() {
     queryKey: [`${API_URL}/api/reports/annual`, selectedYear],
     queryFn: async () => {
       const res = await fetch(`${API_URL}/api/reports/annual?year=${selectedYear}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
         credentials: "include",
       });
       return res.json();
@@ -77,6 +95,10 @@ export default function ReportsPage() {
     queryKey: [`${API_URL}/api/reports/top-clients`],
     queryFn: async () => {
       const res = await fetch(`${API_URL}/api/reports/top-clients?limit=10`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
         credentials: "include",
       });
       return res.json();

@@ -37,7 +37,11 @@ export default function ZATCAIntegrationPage() {
     const testConnection = useMutation({
         mutationFn: async () => {
             const res = await fetch(`${API_URL}/api/zatca/integration/test`, {
-                method: "POST", // ✅ Fixed: Changed to POST
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
+                method: "POST",
                 credentials: "include",
             });
             if (!res.ok) throw new Error("Failed to test connection");
@@ -50,6 +54,10 @@ export default function ZATCAIntegrationPage() {
         queryKey: [`${API_URL}/api/zatca/integration/status`],
         queryFn: async () => {
             const res = await fetch(`${API_URL}/api/zatca/integration/status`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
                 credentials: "include",
             });
             return res.json();
@@ -60,8 +68,11 @@ export default function ZATCAIntegrationPage() {
     const generateCSRMutation = useMutation({
         mutationFn: async (data: any) => {
             const res = await fetch(`${API_URL}/api/zatca/integration/generate-csr`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
                 credentials: "include",
                 body: JSON.stringify(data),
             });
@@ -90,8 +101,11 @@ export default function ZATCAIntegrationPage() {
     const complianceCheckMutation = useMutation({
         mutationFn: async () => {
             const res = await fetch(`${API_URL}/api/zatca/integration/compliance-check`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
                 credentials: "include",
                 body: JSON.stringify({ csr, otp }),
             });
@@ -112,6 +126,7 @@ export default function ZATCAIntegrationPage() {
             });
             queryClient.invalidateQueries({
                 queryKey: [`${API_URL}/api/zatca/integration/status`],
+
             });
         },
         onError: (error: Error) => {
@@ -128,7 +143,10 @@ export default function ZATCAIntegrationPage() {
         mutationFn: async () => {
             const res = await fetch(`${API_URL}/api/zatca/integration/production-csid`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
                 credentials: "include",
                 body: JSON.stringify({ complianceRequestId }),
             });
