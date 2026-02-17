@@ -2,14 +2,16 @@ import "dotenv/config";
 import cors from "cors";
 import express from "express";
 import session from "express-session";
+import connectPgSimple from "connect-pg-simple";
 import { createServer } from "http";
 import { registerRoutes } from "./routes.js";
 import passport from "./config/passport.js";
 
 const app = express();
 const httpServer = createServer(app);
+const PgSession = connectPgSimple(session);
 
-// Trust proxy (important for production behind Render / Railway / Replit)
+// Trust proxy
 app.set("trust proxy", 1);
 
 // Body parsers
@@ -17,29 +19,32 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // CORS
-const allowedOrigin = process.env.FRONTEND_URL || "http://localhost:5173";
+const allowedOrigin =
+  process.env.NODE_ENV === "production"
+    ? process.env.FRONTEND_URL
+    : "http://localhost:5173";
 
-console.log("Allowed origin:", allowedOrigin);
-console.log("🌐 FRONTEND_URL:", process.env.FRONTEND_URL);
-console.log("🌐 NODE_ENV:", process.env.NODE_ENV);
-app.use(
-  cors({
-    origin: allowedOrigin,
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: allowedOrigin,
+  credentials: true,
+}));
 
 // Session middleware
 app.use(
   session({
+    store: new PgSession({
+      conString: process.env.DATABASE_URL,
+      tableName: "session",
+      createTableIfMissing: true, // ← auto table banayega
+    }),
     secret: process.env.SESSION_SECRET || "dev-secret-change-in-production",
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: process.env.NODE_ENV === "production", // HTTPS only in production
+      secure: process.env.NODE_ENV === "production",
       httpOnly: true,
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      maxAge: 24 * 60 * 60 * 1000,
     },
   })
 );
@@ -47,19 +52,14 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Health check endpoint
 app.get("/health", (req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-// Start server
 (async () => {
   try {
-    // Register all routes
     await registerRoutes(httpServer, app);
-
     const port = process.env.PORT || 5000;
-
     httpServer.listen(port, () => {
       console.log(`🚀 Server running on http://localhost:${port}`);
       console.log(`📝 Environment: ${process.env.NODE_ENV || "development"}`);
@@ -71,11 +71,6 @@ app.get("/health", (req, res) => {
   }
 })();
 
-// Graceful shutdown
 process.on("SIGTERM", () => {
-  console.log("SIGTERM received, closing server gracefully...");
-  httpServer.close(() => {
-    console.log("Server closed");
-    process.exit(0);
-  });
+  httpServer.close(() => process.exit(0));
 });
