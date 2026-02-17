@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api, buildUrl } from "@/lib/api";
 import { type InsertInvoice, type Invoice } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
+import { authFetch } from "@/lib/api";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -21,8 +22,8 @@ export function useInvoices(filters?: { status?: string; clientId?: number; star
     queryKey,
     queryFn: async () => {
       const url = filters ? `${api.invoices.list.path}?${queryString}` : api.invoices.list.path;
-      const res = await fetch(url, { credentials: "include" });
-      if (!res.ok) throw new Error("Failed to fetch invoices");
+      const res = await authFetch(url, { credentials: "include" });
+      if (!res.ok) throw new Error("Failed to authFetch invoices");
       return api.invoices.list.responses[200].parse(await res.json());
     },
   });
@@ -33,9 +34,9 @@ export function useInvoice(id: number) {
     queryKey: [api.invoices.get.path, id],
     queryFn: async () => {
       const url = buildUrl(api.invoices.get.path, { id });
-      const res = await fetch(url, { credentials: "include" });
+      const res = await authFetch(url, { credentials: "include" });
       if (res.status === 404) return null;
-      if (!res.ok) throw new Error("Failed to fetch invoice");
+      if (!res.ok) throw new Error("Failed to authFetch invoice");
       return api.invoices.get.responses[200].parse(await res.json());
     },
     enabled: !!id,
@@ -48,7 +49,7 @@ export function useCreateInvoice() {
 
   return useMutation({
     mutationFn: async (data: InsertInvoice) => {
-      const res = await fetch(api.invoices.create.path, {
+      const res = await authFetch(api.invoices.create.path, {
         method: api.invoices.create.method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -89,7 +90,7 @@ export function useUpdateInvoiceStatus() {
   return useMutation({
     mutationFn: async ({ id, status }: { id: number; status: "draft" | "sent" | "paid" | "cancelled" }) => {
       const url = buildUrl(api.invoices.updateStatus.path, { id });
-      const res = await fetch(url, {
+      const res = await authFetch(url, {
         method: api.invoices.updateStatus.method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status }),
@@ -126,7 +127,7 @@ export function useDeleteInvoice() {
 
   return useMutation({
     mutationFn: async (id: number) => {
-      const res = await fetch(`${API_URL}/invoices/${id}`, {
+      const res = await authFetch(`${API_URL}/invoices/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -160,7 +161,7 @@ export function useUpdateInvoice() {
 
   return useMutation({
     mutationFn: async ({ id, data }: { id: number; data: any }) => {
-      const res = await fetch(`${API_URL}/invoices/${id}`, {
+      const res = await authFetch(`${API_URL}/invoices/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
