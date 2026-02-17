@@ -6,9 +6,9 @@ const API_URL = import.meta.env.VITE_API_URL;
 // ✅ Organization data fetch karo - Settings form pre-fill ke liye
 export function useOrganization() {
   return useQuery({
-    queryKey: [`${API_URL}/organization`],
+    queryKey: [`${API_URL}/api/organization`],
     queryFn: async () => {
-      const res = await fetch(`${API_URL}/organization`, { credentials: "include" });
+      const res = await fetch(`${API_URL}/api/organization`, { credentials: "include" });
       if (!res.ok) throw new Error("Failed to fetch organization");
       return res.json();
     },
@@ -17,9 +17,9 @@ export function useOrganization() {
 
 export function useOrganizationStats() {
   return useQuery({
-    queryKey: [`${API_URL}/organizations/stats`],
+    queryKey: [`${API_URL}/api/organizations/stats`],
     queryFn: async () => {
-      const res = await fetch(`${API_URL}/organizations/stats`, { credentials: "include" });
+      const res = await fetch(`${API_URL}/api/organizations/stats`, { credentials: "include" });
       if (!res.ok) throw new Error("Failed to fetch stats");
       return res.json();
     },
@@ -38,7 +38,7 @@ export function useUpdateOrganization() {
       zatcaUnitId?: string;
       zatcaPrivateKey?: string;
     }) => {
-      const res = await fetch(`${API_URL}/organization`, {
+      const res = await fetch(`${API_URL}/api/organization`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -49,10 +49,10 @@ export function useUpdateOrganization() {
       return res.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [`${API_URL}/organization`] });
+      queryClient.invalidateQueries({ queryKey: [`${API_URL}/api/organization`] });
       // ✅ FIX: api.auth.me.path ki jagah hardcoded string
-      queryClient.invalidateQueries({ queryKey: [`${API_URL}/auth/me`] });
-      queryClient.invalidateQueries({ queryKey: [`${API_URL}/organizations/stats`] });
+      queryClient.invalidateQueries({ queryKey: [`${API_URL}/api/auth/me`] });
+      queryClient.invalidateQueries({ queryKey: [`${API_URL}/api/organizations/stats`] });
       toast({
         title: "Success",
         description: "Organization settings updated",
