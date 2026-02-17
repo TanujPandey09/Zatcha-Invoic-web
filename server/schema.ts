@@ -5,7 +5,7 @@ import { z } from "zod";
 
 export const userRole = pgEnum("user_role", ["admin", "member"]);
 export const subscriptionPlan = pgEnum("subscription_plan", ["free", "basic"]);
-export const invoiceStatus = pgEnum("invoice_status", ["draft", "sent", "paid", "cancelled", "overdue"]);
+export const invoiceStatus = pgEnum("invoice_status", ["draft", "submitted", "sent", "paid", "cancelled", "overdue"]);
 export const auditAction = pgEnum("audit_action", ["create", "update", "delete", "status_change", "login"]);
 
 // Organizations (Tenants)
@@ -19,6 +19,7 @@ export const organizations = pgTable("organizations", {
   // ZATCA Phase 2 Placeholders
   zatcaUnitId: text("zatca_unit_id"),
   zatcaPrivateKey: text("zatca_private_key"),
+  zatcaSecret: text("zatca_secret"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -66,6 +67,8 @@ export const invoices = pgTable("invoices", {
   zatcaPrevHash: text("zatca_prev_hash"),
   zatcaXml: text("zatca_xml"),
   zatcaQr: text("zatca_qr"),
+  zatcaStatus: text("zatca_status"),
+
   createdAt: timestamp("created_at").defaultNow(),
 });
 

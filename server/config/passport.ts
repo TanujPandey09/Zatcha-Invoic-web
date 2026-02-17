@@ -1,7 +1,6 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Strategy as MicrosoftStrategy } from "passport-microsoft";
-import { Strategy as AppleStrategy } from "passport-apple";
 import { storage } from "../storage";
 import "dotenv/config";
 
