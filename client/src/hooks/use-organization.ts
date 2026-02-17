@@ -17,7 +17,7 @@ export function useOrganizationStats() {
   return useQuery({
     queryKey: ["/api/organization/stats"],
     queryFn: async () => {
-      const res = await authFetch("/api/organization/stats"); // ✅ singular + authFetch
+      const res = await authFetch("/api/organization/stats");
       if (!res.ok) throw new Error("Failed to fetch stats");
       return res.json();
     },
