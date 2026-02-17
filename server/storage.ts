@@ -216,7 +216,7 @@ export class DatabaseStorage implements IStorage {
         .values({
           organizationId: orgId,
           clientId: data.clientId,
-          invoiceNumber: data.invoiceNumber,
+          invoiceNumber: data.invoiceNumber ?? `INV-${Date.now()}`,
           issueDate: data.issueDate ? new Date(data.issueDate) : new Date(),
           dueDate: data.dueDate ? new Date(data.dueDate) : null,
           status: data.status || "draft",
