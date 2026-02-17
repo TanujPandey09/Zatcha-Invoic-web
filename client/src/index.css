@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* SAUDI CONTEXT PALETTE - MODERN LIGHT THEME */
+
+    /* BACKGROUND: Off White #F8F9FA */
+    --background: 210 20% 98%;
+    --foreground: 215 28% 17%;
+    /* Text Dark #1F2937 */
+
+    /* CARD: White */
+    --card: 0 0% 100%;
+    --card-foreground: 215 28% 17%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 28% 17%;
+
+    /* PRIMARY: Deep Saudi Green #006C35 (HSL: 150 100% 21%) */
+    --primary: 150 100% 21%;
+    --primary-foreground: 0 0% 100%;
+
+    /* SECONDARY: Soft Grayish Green (tint) */
+    --secondary: 150 20% 96%;
+    --secondary-foreground: 150 100% 21%;
+
+    /* MUTED: Light Gray */
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    /* ACCENT: Soft Gold #C6A75E (HSL: 42 47% 57%) */
+    --accent: 42 47% 57%;
+    --accent-foreground: 0 0% 100%;
+
+    /* DESTRUCTIVE: Red (Standard) */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 150 100% 21%;
+    /* Focus Ring = Primary */
+
+    --radius: 0.75rem;
+
+    /* CHART COLORS for Saudi Context */
+    --chart-1: 150 100% 21%;
+    /* Primary Green */
+    --chart-2: 42 47% 57%;
+    /* Gold */
+    --chart-3: 150 100% 15%;
+    /* Dark Forest Green */
+    --chart-4: 215 28% 17%;
+    /* Charcoal */
+    --chart-5: 200 80% 60%;
+    /* Light Blue/Cyan (complementary) */
+
+    --font-display: 'Outfit', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  .dark {
+    /* MODERN DARK THEME - Forest/Charcoal Base */
+
+    /* BACKGROUND: Deep Charcoal/Almost Black */
+    --background: 222 47% 8%;
+    --foreground: 210 40% 98%;
+
+    /* CARD: Slightly lighter charcoal */
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+
+    /* PRIMARY: Saudi Green (slightly brighter for dark mode contrast) #008744? 
+       Using base #006C35 is readable on dark, but maybe boost L a bit. 
+       Let's stick to brand color or slight tint. */
+    --primary: 150 80% 30%;
+    --primary-foreground: 0 0% 100%;
+
+    /* SECONDARY: Dark Forest Green */
+    --secondary: 150 100% 15%;
+    /* #004D26 */
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 217 19% 18%;
+    --muted-foreground: 215 20% 65%;
+
+    /* ACCENT: Gold (same or brighter) */
+    --accent: 42 47% 57%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 217 19% 20%;
+    --input: 217 19% 20%;
+    --ring: 150 80% 30%;
+
+    /* CHART COLORS for Dark Mode */
+    --chart-1: 150 80% 40%;
+    --chart-2: 42 60% 60%;
+    --chart-3: 150 60% 25%;
+    --chart-4: 215 20% 80%;
+    --chart-5: 200 80% 70%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    @apply font-bold tracking-tight text-foreground;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-lg;
+  }
+
+  .dark .glass-panel {
+    @apply bg-black/40 border-white/10;
+  }
+
+  /* Saudi Green Gradient Text */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+  }
+
+  /* Hover Effects */
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1;
+  }
+
+  .glow-primary {
+    @apply shadow-[0_0_20px_rgba(var(--primary), 0.3)];
+  }
+
+  .glow-accent {
+    @apply shadow-[0_0_20px_rgba(var(--accent), 0.3)];
+  }
+
+  .font-arabic {
+    font-family: 'Cairo', sans-serif !important;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}

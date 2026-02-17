@@ -1,0 +1,133 @@
+export const en = {
+    common: {
+        dashboard: "Dashboard",
+        invoices: "Invoices",
+        clients: "Clients",
+        reports: "Reports",
+        settings: "Settings",
+        zatca: "ZATCA",
+        logout: "Log out",
+        save: "Save",
+        cancel: "Cancel",
+        edit: "Edit",
+        delete: "Delete",
+        view: "View",
+        create: "Create",
+        search: "Search",
+        actions: "Actions",
+        loading: "Loading...",
+        success: "Success",
+        error: "Error",
+        status: {
+            draft: "Draft",
+            sent: "Sent",
+            paid: "Paid",
+            cancelled: "Cancelled"
+        }
+    },
+    landing: {
+        heroTitle: "Saudi E-Invoicing Made Simple.",
+        heroSubtitle: "ZATCA Compliant from Day One.",
+        heroDescription: "FatooraPro is the ultimate all-in-one VAT & Invoicing solution designed specifically for Saudi SMEs. Stay ZATCA compliant while focusing on what matters most—your growth.",
+        startFree: "Get Started for Free",
+        watchDemo: "Watch Demo",
+        featuresTitle: "Everything you need to scale",
+        pricingTitle: "Saudi-Friendly Pricing",
+        freePlan: "Free",
+        basicPlan: "Basic",
+        proPlan: "Pro",
+        currentPlan: "Current Plan",
+        upgrade: "Upgrade",
+        getStarted: "Get Started",
+        sar: "SAR",
+        perMonth: "/mo",
+        trustedBy: "Trusted by 2,000+ Businesses",
+        standard: "The Modern Standard",
+        standardDesc: "FatooraPro isn't just an invoicing tool—it's your automated compliance partner. We bridge the gap between business operations and the latest ZATCA technical requirements.",
+        complianceTitle: "Master the Saudi Compliance without the stress.",
+        capabilities: "Capabilities",
+        pricingSubtitle: "Simple, local-friendly pricing with no hidden fees.",
+        mostPopular: "Popular Choice",
+        faqs: "FAQs"
+    },
+    static: {
+        lastUpdated: "Last Updated",
+        zatcaRulebook: {
+            title: "ZATCA Rulebook",
+            tag: "Documentation",
+            description: "The definitive guide to electronic invoicing regulations and technical standards in the Kingdom of Saudi Arabia.",
+            overview: "Overview",
+            overviewDesc: "The ZATCA E-Invoicing Rulebook defines the official requirements for electronic invoicing in the Kingdom of Saudi Arabia. As part of Saudi Vision 2030, all taxable businesses must comply with the regulations issued by the Zakat, Tax and Customs Authority (ZATCA).",
+            pillars: "Core Compliance Pillars",
+            officialResources: "Official Resources",
+            officialDesc: "For technical deep-dives into the e-invoicing SDK and formal legal specifications, refer to the official ZATCA portal:"
+        },
+        phase2Docs: {
+            title: "Phase 2: Integration Phase",
+            tag: "Technical Information",
+            description: "A technical roadmap for real-time invoice clearance and reporting integration with the ZATCA Fatoora portal.",
+            whatIs: "What is Phase 2?",
+            whatIsDesc: "Unlike Phase 1, which focused on generation and local storage, Phase 2 introduces the Integration Phase. In this stage, your invoicing system must communicate in real-time with ZATCA’s platform for clearance (B2B) or reporting (B2C) purposes.",
+            requirements: "Technical Requirements",
+            sdkTitle: "Standard Integration SDK",
+            sdkDesc: "FatooraPro developers have built an abstraction layer that handles the entire handshake protocol:",
+            note: "Note: Phase 2 is mandatory for large enterprises first, followed by smaller waves for SMEs. Contact our support team to see when your business is scheduled for integration."
+        },
+        vatHelp: {
+            title: "VAT Help Center",
+            tag: "Support",
+            description: "Clear, simplified answers to common Value Added Tax (VAT) questions in Saudi Arabia.",
+            whatIs: "What is VAT?",
+            whatIsDesc: "Value Added Tax (VAT) is a 15% indirect tax applied to most goods and services in KSA. It is collected by taxable persons and businesses on behalf of the government through ZATCA.",
+            thresholds: "Registration Thresholds",
+            thresholdsDesc: "Businesses with annual taxable supplies exceeding SAR 375,000 must register. Voluntary registration is possible for those above SAR 187,500.",
+            checklist: "Invoice Checklist",
+            zeroEffort: "Zero Manual Effort",
+            zeroEffortDesc: "FatooraPro automatically handles all math, rounding, and ZATCA-compliant formatting. Create an invoice in seconds while remaining 100% compliant with the latest Saudi tax laws."
+        },
+        privacy: {
+            title: "Privacy Policy",
+            tag: "Legal",
+            description: "Our commitment to safeguarding your sensitive financial data and business operations.",
+            quote: "FatooraPro is built on a foundation of trust. We handle sensitive VAT and invoice data with military-grade encryption and strict access controls.",
+            collection: "Data Collection",
+            usage: "Data Usage",
+            security: "Security Standards",
+            noSell: "We never sell, lease, or share your data with 3rd party advertizers.",
+            contactDpo: "Contact DPO"
+        },
+        terms: {
+            title: "Terms of Service",
+            tag: "Legal",
+            description: "The rules and guidelines for using the FatooraPro platform for your business operations.",
+            quote: "By using FatooraPro, you agree to the following terms and conditions. Please read them carefully.",
+            usage: "Acceptable Use",
+            compliance: "Compliance & Ethics",
+            billing: "Billing & Subscriptions",
+            security: "Security & Liability",
+            availability: "Availability (SLA)"
+        }
+    },
+    reports: {
+        title: "Financial Reports",
+        subtitle: "View revenue, VAT, and business analytics",
+        monthly: "Monthly Reports",
+        vat: "VAT Reports",
+        annual: "Annual Summary",
+        topClients: "Top Clients",
+        totalRevenue: "Total Revenue",
+        vatCollected: "VAT Collected",
+        totalInvoices: "Total Invoices",
+        activeClients: "Active Clients",
+        export: "Export CSV"
+    },
+    auth: {
+        welcome: "Welcome back",
+        register: "Create an account",
+        email: "Email address",
+        password: "Password",
+        signIn: "Sign In",
+        socialLogin: "Or continue with",
+        footerSettings: "Settings"
+    }
+};

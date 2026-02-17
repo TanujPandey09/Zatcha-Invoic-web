@@ -1,0 +1,86 @@
+Upgrade the existing Saudi SME Invoice & VAT SaaS system
+to enterprise-grade production readiness.
+
+Do NOT refactor working logic.
+Extend safely and professionally.
+
+IMPLEMENT THE FOLLOWING MODULES:
+
+--------------------------------------------------
+1. ROLE-BASED ACCESS CONTROL (RBAC)
+--------------------------------------------------
+
+Add roles inside organization:
+
+- OWNER
+- ADMIN
+- ACCOUNTANT
+- STAFF
+
+Requirements:
+- Only OWNER/ADMIN can change subscription
+- Only OWNER can delete invoices
+- ACCOUNTANT can create/edit invoices
+- STAFF can only create draft invoices
+- Add middleware for role enforcement
+- Update schema accordingly
+
+--------------------------------------------------
+2. EMAIL & NOTIFICATION SYSTEM
+--------------------------------------------------
+
+Add transactional email support:
+
+Events:
+- Invoice Sent
+- Payment Reminder
+- Subscription Expiry Warning
+
+Requirements:
+- Abstract email service layer
+- Add email logs table
+- Use environment-based configuration
+- Do not hardcode provider
+
+--------------------------------------------------
+3. BACKUP & DATA SAFETY DESIGN
+--------------------------------------------------
+
+Implement:
+
+- Backup metadata table
+- Manual backup trigger endpoint
+- Add daily backup scheduler placeholder
+- Add audit record for backup execution
+
+Architecture only (no external service integration yet).
+
+--------------------------------------------------
+4. SUBSCRIPTION WEBHOOK SYSTEM
+--------------------------------------------------
+
+Add webhook-ready architecture:
+
+- subscription_status field
+- renewal_date field
+- webhook handler endpoint (/api/webhook/payment)
+- idempotency key handling
+- update plan on payment success
+
+Do NOT integrate real gateway yet.
+Just prepare architecture.
+
+--------------------------------------------------
+5. PERFORMANCE & SECURITY HARDENING
+--------------------------------------------------
+
+Implement:
+
+- Rate limiting middleware
+- Request logging middleware
+- Indexes on:
+  - organization_id
+  - invoice_status
+  - invoice_date
+- Add global error handler
+- Add structured logging
