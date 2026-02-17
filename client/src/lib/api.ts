@@ -66,6 +66,8 @@ export const OrganizationSchema = z.object({
 
 export type Organization = z.infer<typeof OrganizationSchema>;
 
+
+
 /* ================= INPUT TYPES ================= */
 
 export const InsertClientSchema = z.object({
@@ -181,4 +183,21 @@ export function buildUrl(
     });
   }
   return url;
+}
+
+// ================= AUTH FETCH HELPER =================
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+export function authFetch(url: string, options: RequestInit = {}) {
+  const token = localStorage.getItem('token');
+
+  return fetch(`${API_URL}${url}`, {
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      ...options.headers,
+    },
+  });
 }

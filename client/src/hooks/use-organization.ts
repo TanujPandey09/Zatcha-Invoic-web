@@ -3,7 +3,7 @@ import { api } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
 
 const API_URL = import.meta.env.VITE_API_URL;
-// ✅ Organization data fetch karo - Settings form pre-fill ke liye
+
 export function useOrganization() {
   return useQuery({
     queryKey: [`${API_URL}/api/organization`],
