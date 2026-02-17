@@ -1,7 +1,9 @@
 import type { Request, Response, NextFunction } from "express";
 import { storage } from "../storage.js";
+import jwt from "jsonwebtoken";
 
-// Extend Express Request type to include custom properties
+const JWT_SECRET = process.env.JWT_SECRET || "secret123";
+
 declare global {
     namespace Express {
         interface Request {
@@ -10,46 +12,43 @@ declare global {
     }
 }
 
-/**
- * Middleware to ensure user is authenticated
- * Checks session and loads user from database
- */
 export async function requireAuth(
     req: Request,
     res: Response,
     next: NextFunction
 ) {
-    if (!(req as any).session.userId) {
-        console.log("🔒 [Auth] No session userId found");
+
+    const token = req.headers.authorization?.split(" ")[1];
+
+    if (!token) {
+        console.log("🔒 [Auth] No token found");
         return res.status(401).json({ message: "Unauthorized" });
     }
 
-    const user = await storage.getUserById((req as any).session.userId);
-    if (!user) {
-        console.log(`🔒 [Auth] User not found for ID: ${(req as any).session.userId}`);
-        return res.status(401).json({ message: "Invalid session" });
-    }
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET) as { userId: number };
+        const user = await storage.getUserById(decoded.userId);
 
-    req.dbUser = user;
-    next();
+        if (!user) {
+            return res.status(401).json({ message: "Invalid token" });
+        }
+
+        req.dbUser = user;
+        next();
+    } catch {
+        return res.status(401).json({ message: "Unauthorized" });
+    }
 }
 
-/**
- * Middleware to ensure user has an organization
- * Must be used after requireAuth
- * Allows organization creation endpoint to pass through
- */
 export async function requireOrg(
     req: Request,
     res: Response,
     next: NextFunction
 ) {
     if (!req.dbUser?.organizationId) {
-        // Allow organization creation endpoint
         if (req.path === "/api/organization" && req.method === "PUT") {
             return next();
         }
-        console.log(`🚫 [Org] User ${req.dbUser?.id} has no organizationId`);
         return res.status(403).json({ message: "No Organization Found." });
     }
     next();
