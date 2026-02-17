@@ -23,7 +23,7 @@ export type CreateInvoiceData = InsertInvoice & {
   zatcaQr?: string;
 };
 
-import { db } from "./db";
+import { db } from "./db.js";
 import { eq, and, sql, desc } from "drizzle-orm";
 import { randomUUID } from "crypto";
 
