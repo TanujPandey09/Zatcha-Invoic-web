@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import { asyncHandler } from "../middleware/error";
-import * as zatcaIntegration from "../services/zatca-Integration.service";
-import { storage } from "../storage";
+import { asyncHandler } from "../middleware/error.js";
+import * as zatcaIntegration from "../services/zatca-Integration.service.js";
+import { storage } from "../storage.js";
 
 /**
  * Setup ZATCA integration (Alternative to generateCSR)

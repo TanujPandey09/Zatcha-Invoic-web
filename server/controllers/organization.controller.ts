@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import * as organizationService from "../services/organization.service";
-import { asyncHandler } from "../middleware/error";
-import { api } from "../api";
+import * as organizationService from "../services/organization.service.js";
+import { asyncHandler } from "../middleware/error.js";
+import { api } from "../api.js";
 
 /**
  * Create or update organization

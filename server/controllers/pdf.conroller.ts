@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import { asyncHandler } from "../middleware/error";
-import { storage } from "../storage";
+import { asyncHandler } from "../middleware/error.js";
+import { storage } from "../storage.js";
 // @ts-ignore
 import PDFDocument from "pdfkit";
 

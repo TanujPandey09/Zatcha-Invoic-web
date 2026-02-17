@@ -3,8 +3,8 @@ import cors from "cors";
 import express from "express";
 import session from "express-session";
 import { createServer } from "http";
-import { registerRoutes } from "./routes";
-import passport from "./config/passport";
+import { registerRoutes } from "./routes.js";
+import passport from "./config/passport.js";
 
 const app = express();
 const httpServer = createServer(app);

@@ -1,5 +1,5 @@
-import { storage } from "../storage";
-import { NotFoundError } from "../middleware/error";
+import { storage } from "../storage.js";
+import { NotFoundError } from "../middleware/error.js";
 
 export interface MonthlyReport {
     month: string; // Format: "2024-01" (YYYY-MM)

@@ -1,5 +1,5 @@
-import { storage } from "../storage";
-import { NotFoundError, ForbiddenError } from "../middleware/error";
+import { storage } from "../storage.js";
+import { NotFoundError, ForbiddenError } from "../middleware/error.js";
 
 export interface ClientInput {
     name: string;

@@ -1,6 +1,6 @@
-import { storage } from "../storage";
-import { enforceInvoiceLimit } from "./organization.service";
-import { NotFoundError, ForbiddenError, ValidationError } from "../middleware/error";
+import { storage } from "../storage.js";
+import { enforceInvoiceLimit } from "./organization.service.js";
+import { NotFoundError, ForbiddenError, ValidationError } from "../middleware/error.js";
 import {
     generateInvoiceUUID,
     generateInvoiceHash,

@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import * as auditService from "../services/audit.service";
-import { asyncHandler } from "../middleware/error";
+import * as auditService from "../services/audit.service.js";
+import { asyncHandler } from "../middleware/error.js";
 
 /**
  * Get audit logs with optional filters

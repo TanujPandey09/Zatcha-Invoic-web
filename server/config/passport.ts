@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Strategy as MicrosoftStrategy } from "passport-microsoft";
-import { storage } from "../storage";
+import { storage } from "../storage.js";
 import "dotenv/config";
 
 // Google Strategy

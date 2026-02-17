@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
-import { storage } from "../storage";
-import { ConflictError, UnauthorizedError } from "../middleware/error";
+import { storage } from "../storage.js";
+import { ConflictError, UnauthorizedError } from "../middleware/error.js";
 
 export interface RegisterInput {
     email: string;

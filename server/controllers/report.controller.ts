@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import * as reportsService from "../services/report.service";
-import { asyncHandler } from "../middleware/error";
+import * as reportsService from "../services/report.service.js";
+import { asyncHandler } from "../middleware/error.js";
 
 /**
  * Get monthly reports

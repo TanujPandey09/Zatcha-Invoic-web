@@ -9,7 +9,7 @@
  */
 
 import crypto from "crypto";
-import { generateInvoiceUUID, generateInvoiceHash, generateQRCode } from "./zatca.service";
+import { generateInvoiceUUID, generateInvoiceHash, generateQRCode } from "./zatca.service.js";
 
 // ZATCA API Configuration
 const ZATCA_CONFIG = {

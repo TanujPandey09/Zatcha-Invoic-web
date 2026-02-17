@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import * as invoiceService from "../services/invoice.service";
-import { asyncHandler } from "../middleware/error";
-import { api } from "../api";
+import * as invoiceService from "../services/invoice.service.js";
+import { asyncHandler } from "../middleware/error.js";
+import { api } from "../api.js";
 
 /**
  * List invoices with optional filters

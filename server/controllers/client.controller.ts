@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import * as clientService from "../services/client.service";
-import { asyncHandler } from "../middleware/error";
-import { api } from "../api";
+import * as clientService from "../services/client.service.js";
+import { asyncHandler } from "../middleware/error.js";
+import { api } from "../api.js";
 
 /**
  * Get all clients

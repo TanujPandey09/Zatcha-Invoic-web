@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import * as authService from "../services/auth.services";
-import { asyncHandler } from "../middleware/error";
+import * as authService from "../services/auth.services.js";
+import { asyncHandler } from "../middleware/error.js";
 
 /**
  * Register a new user

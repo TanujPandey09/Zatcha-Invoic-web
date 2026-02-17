@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import * as zatcaService from "../services/zatca.service";
-import { asyncHandler } from "../middleware/error";
-import { storage } from "../storage";
+import * as zatcaService from "../services/zatca.service.js";
+import { asyncHandler } from "../middleware/error.js";
+import { storage } from "../storage.js";
 
 /**
  * Process invoice for ZATCA compliance
