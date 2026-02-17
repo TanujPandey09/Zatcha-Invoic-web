@@ -77,9 +77,23 @@ export default function AuthPage() {
       const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
         body: JSON.stringify({ email, password, username: email.split('@')[0] }),
       });
+
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.message || "Authentication failed");
+      }
+
+      const data = await res.json();
+      localStorage.setItem('token', data.token); // ← ADD KARO
+
+      await queryClient.refetchQueries({ queryKey: [`${API_URL}/api/auth/me`] });
+
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 100);
+
 
       if (!res.ok) {
         const error = await res.json();
