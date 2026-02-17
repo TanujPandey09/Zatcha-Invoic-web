@@ -9,18 +9,14 @@ import {
 } from "./zatca.service.js";
 
 export async function createInvoice(orgId: number, userId: number, input: any) {
-    console.log("📄 [Invoice Service] Starting invoice creation");
-
-    // 1. Enforce business rules
     await enforceInvoiceLimit(orgId);
 
-    // 2. Fetch organization for ZATCA data
     const org = await storage.getOrganization(orgId);
     if (!org) {
         console.error("❌ Organization not found:", orgId);
         throw new NotFoundError("Organization");
     }
-    console.log("✅ Organization found:", org.name);
+
 
     // 3. Fetch client for ZATCA data
     const client = await storage.getClientById(input.clientId);

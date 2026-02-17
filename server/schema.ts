@@ -157,6 +157,7 @@ export const insertInvoiceSchema = createInsertSchema(invoices).omit({
   createdAt: true,
   organizationId: true,
   zatcaUuid: true,
+  zatcaStatus: true,
   zatcaHash: true,
   zatcaPrevHash: true,
   zatcaXml: true,
@@ -165,13 +166,14 @@ export const insertInvoiceSchema = createInsertSchema(invoices).omit({
   taxTotal: true,
   total: true,
 }).extend({
+  invoiceNumber: z.string().optional(),
   issueDate: z.string().transform(v => new Date(v)).or(z.date()).optional(),
   dueDate: z.string().transform(v => new Date(v)).or(z.date()).nullable().optional(),
   items: z.array(z.object({
     description: z.string(),
     quantity: z.number().or(z.string().transform(v => Number(v))),
     unitPrice: z.number().or(z.string().transform(v => Number(v))),
-    invoiceNumber: z.string().optional(),
+
   }))
 });
 export const insertAuditLogSchema = createInsertSchema(auditLogs).omit({ id: true, createdAt: true });
