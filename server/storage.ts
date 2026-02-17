@@ -13,7 +13,7 @@ import {
   type AuditLog,
   type InsertUser,
   type InsertInvoice,
-} from "./schema";
+} from "./schema.js";
 
 export type CreateInvoiceData = InsertInvoice & {
   zatcaUuid?: string;
