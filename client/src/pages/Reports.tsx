@@ -29,9 +29,9 @@ export default function ReportsPage() {
 
   // Fetch monthly reports
   const { data: monthlyReports, isLoading: monthlyLoading } = useQuery({
-    queryKey: [`${API_URL}/reports/monthly`, selectedYear],
+    queryKey: [`${API_URL}/api/reports/monthly`, selectedYear],
     queryFn: async () => {
-      const res = await fetch(`${API_URL}/reports/monthly?year=${selectedYear}`, {
+      const res = await fetch(`${API_URL}/api/reports/monthly?year=${selectedYear}`, {
         credentials: "include",
       });
       return res.json();
@@ -42,7 +42,7 @@ export default function ReportsPage() {
   const { data: dashboardStats } = useQuery({
     queryKey: [`${API_URL}/reports/dashboard`],
     queryFn: async () => {
-      const res = await fetch(`${API_URL}/reports/dashboard`, {
+      const res = await fetch(`${API_URL}/api/reports/dashboard`, {
         credentials: "include",
       });
       return res.json();
@@ -51,10 +51,10 @@ export default function ReportsPage() {
 
   // Fetch quarterly VAT report
   const { data: quarterlyVAT } = useQuery({
-    queryKey: [`${API_URL}/reports/quarterly`, selectedYear, selectedQuarter],
+    queryKey: [`${API_URL}/api/reports/quarterly`, selectedYear, selectedQuarter],
     queryFn: async () => {
       const res = await fetch(
-        `${API_URL}/reports/quarterly?year=${selectedYear}&quarter=${selectedQuarter}`,
+        `${API_URL}/api/reports/quarterly?year=${selectedYear}&quarter=${selectedQuarter}`,
         { credentials: "include" }
       );
       return res.json();
@@ -63,9 +63,9 @@ export default function ReportsPage() {
 
   // Fetch annual report
   const { data: annualReport } = useQuery({
-    queryKey: [`${API_URL}/reports/annual`, selectedYear],
+    queryKey: [`${API_URL}/api/reports/annual`, selectedYear],
     queryFn: async () => {
-      const res = await fetch(`${API_URL}/reports/annual?year=${selectedYear}`, {
+      const res = await fetch(`${API_URL}/api/reports/annual?year=${selectedYear}`, {
         credentials: "include",
       });
       return res.json();
@@ -74,9 +74,9 @@ export default function ReportsPage() {
 
   // Fetch top clients
   const { data: topClients } = useQuery({
-    queryKey: [`${API_URL}/reports/top-clients`],
+    queryKey: [`${API_URL}/api/reports/top-clients`],
     queryFn: async () => {
-      const res = await fetch(`${API_URL}/reports/top-clients?limit=10`, {
+      const res = await fetch(`${API_URL}/api/reports/top-clients?limit=10`, {
         credentials: "include",
       });
       return res.json();
@@ -86,7 +86,7 @@ export default function ReportsPage() {
   // Export CSV
   const handleExportCSV = () => {
     window.open(
-      `${API_URL}/reports/export/monthly?year=${selectedYear}`,
+      `${API_URL}/api/reports/export/monthly?year=${selectedYear}`,
       "_blank"
     );
   };

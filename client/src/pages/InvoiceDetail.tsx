@@ -26,7 +26,7 @@ export default function InvoiceDetail() {
     const { data: qrData } = useQuery({
         queryKey: [`/api/zatca/qrcode/${id}`],
         queryFn: async () => {
-            const res = await fetch(`${API_URL}/zatca/qrcode/${id}`, {
+            const res = await fetch(`${API_URL}/api/zatca/qrcode/${id}`, {
                 credentials: "include",
             });
             return res.json();
@@ -50,7 +50,7 @@ export default function InvoiceDetail() {
     };
 
     const handleDownloadXML = () => {
-        window.open(`${API_URL}/zatca/xml/${id}`, "_blank");
+        window.open(`${API_URL}/api/zatca/xml/${id}`, "_blank");
     };
 
     return (

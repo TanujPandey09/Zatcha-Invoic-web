@@ -144,7 +144,7 @@ export default function Invoices() {
 
   // ===== DOWNLOAD PDF =====
   const handleDownloadPDF = (invoiceId: number) => {
-    window.open(`${API_URL}/invoices/${invoiceId}/pdf`, "_blank");
+    window.open(`${API_URL}/api/invoices/${invoiceId}/pdf`, "_blank");
   };
 
   const handleStatusChange = (id: number, newStatus: "draft" | "sent" | "paid" | "cancelled") => {

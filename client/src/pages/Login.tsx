@@ -71,8 +71,8 @@ export default function AuthPage() {
       setLoading(true);
 
       const endpoint = isRegister
-        ? `${API_URL}/auth/register`
-        : `${API_URL}/auth/login`;
+        ? `${API_URL}/api/auth/register`
+        : `${API_URL}/api/auth/login`;
 
       const res = await fetch(endpoint, {
         method: "POST",
@@ -93,7 +93,7 @@ export default function AuthPage() {
           : "Successfully signed in to your dashboard.",
       });
 
-      await queryClient.refetchQueries({ queryKey: [`${API_URL}/auth/me`] });
+      await queryClient.refetchQueries({ queryKey: [`${API_URL}/api/auth/me`] });
 
       setTimeout(() => {
         navigate("/dashboard");
@@ -110,7 +110,7 @@ export default function AuthPage() {
   };
 
   const handleSSO = (provider: string) => {
-    window.location.href = `${API_URL}/auth/${provider}`;
+    window.location.href = `${API_URL}/api/auth/${provider}`;
   };
 
   return (

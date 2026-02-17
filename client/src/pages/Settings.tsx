@@ -355,7 +355,7 @@ export default function Settings() {
                         <CheckCircle2 className="w-3 h-3" /> Linked
                       </span>
                     ) : (
-                      <Button variant="outline" size="sm" onClick={() => window.location.href = `${API_URL}/auth/google`}>Connect</Button>
+                      <Button variant="outline" size="sm" onClick={() => window.location.href = `${API_URL}/api/auth/google`}>Connect</Button>
                     )
                     }
                   </div>
@@ -380,7 +380,7 @@ export default function Settings() {
                         <CheckCircle2 className="w-3 h-3" /> Linked
                       </span>
                     ) : (
-                      <Button variant="outline" size="sm" onClick={() => window.location.href = `${API_URL}/auth/microsoft`}>Connect</Button>
+                      <Button variant="outline" size="sm" onClick={() => window.location.href = `${API_URL}/api/auth/microsoft`}>Connect</Button>
                     )}
                   </div>
 
