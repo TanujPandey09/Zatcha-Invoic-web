@@ -6,7 +6,7 @@ import {
     generateInvoiceHash,
     generateQRCode,
     generateUBLXML,
-} from "./zatca.service";
+} from "./zatca.service.js";
 
 export async function createInvoice(orgId: number, userId: number, input: any) {
     console.log("📄 [Invoice Service] Starting invoice creation");
