@@ -1,22 +1,22 @@
 
 import type { Express } from "express";
 import type { Server } from "http";
-import passport from "./config/passport";
+import passport from "./config/passport.js";
 
-import { requireAuth, requireOrg } from "./middleware/auth";
-import { errorHandler } from "./middleware/error";
-import { api } from "./api";
+import { requireAuth, requireOrg } from "./middleware/auth.js";
+import { errorHandler } from "./middleware/error.js";
+import { api } from "./api.js";
 
 // Controllers
-import * as authController from "./controllers/auth.controller";
-import * as organizationController from "./controllers/organization.controller";
-import * as clientController from "./controllers/client.controller";
-import * as invoiceController from "./controllers/invoice.controller";
-import * as auditController from "./controllers/audit.controller";
-import * as reportsController from "./controllers/report.controller";
-import * as zatcaController from "./controllers/zatca.controller";
-import * as pdfController from "./controllers/pdf.conroller";
-import * as zatcaIntegrationController from "./controllers/zatca-Integration.contoller";
+import * as authController from "./controllers/auth.controller.js";
+import * as organizationController from "./controllers/organization.controller.js";
+import * as clientController from "./controllers/client.controller.js";
+import * as invoiceController from "./controllers/invoice.controller.js";
+import * as auditController from "./controllers/audit.controller.js";
+import * as reportsController from "./controllers/report.controller.js";
+import * as zatcaController from "./controllers/zatca.controller.js";
+import * as pdfController from "./controllers/pdf.conroller.js";
+import * as zatcaIntegrationController from "./controllers/zatca-Integration.contoller.js";
 
 /**
  * Register all application routes
