@@ -91,7 +91,7 @@ export default function Invoices() {
   const onSubmit = (values: z.infer<typeof invoiceFormSchema>) => {
     createInvoice.mutate({
       clientId: parseInt(values.clientId),
-      ...(values.invoiceNumber ? { invoiceNumber: values.invoiceNumber } : {}),
+
       issueDate: new Date(values.issueDate),
       dueDate: values.dueDate ? new Date(values.dueDate) : undefined,
       items: values.items,
@@ -144,8 +144,7 @@ export default function Invoices() {
 
   // ===== DOWNLOAD PDF =====
   const handleDownloadPDF = (invoiceId: number) => {
-    window.open(`${API_URL}/api/invoices/${invoiceId}/pdf`, "_blank");
-
+    window.open(`${API_URL}/invoices/${invoiceId}/pdf`, "_blank");
   };
 
   const handleStatusChange = (id: number, newStatus: "draft" | "sent" | "paid" | "cancelled") => {
@@ -168,12 +167,7 @@ export default function Invoices() {
             <FormMessage />
           </FormItem>
         )} />
-        <FormField control={f.control} name="invoiceNumber" render={({ field }) => (
-          <FormItem>
-            <FormLabel>Invoice Number <span className="text-muted-foreground text-xs">(optional)</span></FormLabel>
-            <FormControl><Input placeholder="Auto-generated" {...field} /></FormControl>
-          </FormItem>
-        )} />
+
         <FormField control={f.control} name="issueDate" render={({ field }) => (
           <FormItem><FormLabel>Issue Date</FormLabel><FormControl><Input type="date" {...field} /></FormControl><FormMessage /></FormItem>
         )} />
