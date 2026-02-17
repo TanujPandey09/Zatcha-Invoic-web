@@ -2,12 +2,13 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
 
+const API_URL = import.meta.env.VITE_API_URL;
 // ✅ Organization data fetch karo - Settings form pre-fill ke liye
 export function useOrganization() {
   return useQuery({
-    queryKey: ["/api/organization"],
+    queryKey: [`${API_URL}/organization`],
     queryFn: async () => {
-      const res = await fetch("/api/organization", { credentials: "include" });
+      const res = await fetch(`${API_URL}/organization`, { credentials: "include" });
       if (!res.ok) throw new Error("Failed to fetch organization");
       return res.json();
     },
@@ -16,9 +17,9 @@ export function useOrganization() {
 
 export function useOrganizationStats() {
   return useQuery({
-    queryKey: [api.organizations.stats.path],
+    queryKey: [`${API_URL}/organizations/stats`],
     queryFn: async () => {
-      const res = await fetch(api.organizations.stats.path, { credentials: "include" });
+      const res = await fetch(`${API_URL}/organizations/stats`, { credentials: "include" });
       if (!res.ok) throw new Error("Failed to fetch stats");
       return res.json();
     },
@@ -37,7 +38,7 @@ export function useUpdateOrganization() {
       zatcaUnitId?: string;
       zatcaPrivateKey?: string;
     }) => {
-      const res = await fetch("/api/organization", {
+      const res = await fetch(`${API_URL}/organization`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -48,10 +49,10 @@ export function useUpdateOrganization() {
       return res.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/organization"] });
+      queryClient.invalidateQueries({ queryKey: [`${API_URL}/organization`] });
       // ✅ FIX: api.auth.me.path ki jagah hardcoded string
-      queryClient.invalidateQueries({ queryKey: ["/api/auth/me"] });
-      queryClient.invalidateQueries({ queryKey: [api.organizations.stats.path] });
+      queryClient.invalidateQueries({ queryKey: [`${API_URL}/auth/me`] });
+      queryClient.invalidateQueries({ queryKey: [`${API_URL}/organizations/stats`] });
       toast({
         title: "Success",
         description: "Organization settings updated",
@@ -73,9 +74,9 @@ export function useMonthlyReport(year?: number, month?: number) {
   if (month) params.append("month", month.toString());
 
   return useQuery({
-    queryKey: [api?.reports?.monthly?.path, year, month],
+    queryKey: [`${API_URL}/reports/monthly`, year, month],
     queryFn: async () => {
-      const url = `${api?.reports?.monthly?.path}?${params.toString()}`;
+      const url = `${API_URL}/reports/monthly?${params.toString()}`;
       const res = await fetch(url, { credentials: "include" });
       if (!res.ok) throw new Error("Failed to fetch report");
       return res.json();

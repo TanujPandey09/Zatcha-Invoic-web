@@ -20,6 +20,8 @@ import {
 } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function ZATCACompliancePage() {
     const { toast } = useToast();
     const queryClient = useQueryClient();
@@ -28,9 +30,9 @@ export default function ZATCACompliancePage() {
 
     // Fetch compliance status
     const { data: complianceStatus, isLoading } = useQuery({
-        queryKey: ["/api/zatca/compliance-status"],
+        queryKey: [`${API_URL}/api/zatca/compliance-status`],
         queryFn: async () => {
-            const res = await fetch("/api/zatca/compliance-status", {
+            const res = await fetch(`${API_URL}/api/zatca/compliance-status`, {
                 credentials: "include",
             });
             return res.json();
@@ -39,9 +41,9 @@ export default function ZATCACompliancePage() {
 
     // Fetch invoices
     const { data: invoices } = useQuery({
-        queryKey: ["/api/invoices"],
+        queryKey: [`${API_URL}/api/invoices`],
         queryFn: async () => {
-            const res = await fetch("/api/invoices", {
+            const res = await fetch(`${API_URL}/api/invoices`, {
                 credentials: "include",
             });
             return res.json();
@@ -50,10 +52,10 @@ export default function ZATCACompliancePage() {
 
     // Fetch QR code for selected invoice
     const { data: qrData } = useQuery({
-        queryKey: ["/api/zatca/qrcode", selectedInvoiceId],
+        queryKey: [`${API_URL}/api/zatca/qrcode`, selectedInvoiceId],
         queryFn: async () => {
             if (!selectedInvoiceId) return null;
-            const res = await fetch(`/api/zatca/qrcode/${selectedInvoiceId}`, {
+            const res = await fetch(`${API_URL}/api/zatca/qrcode/${selectedInvoiceId}`, {
                 credentials: "include",
             });
             return res.json();
@@ -64,7 +66,7 @@ export default function ZATCACompliancePage() {
     // Process invoice mutation
     const processInvoice = useMutation({
         mutationFn: async (invoiceId: number) => {
-            const res = await fetch(`/api/zatca/process/${invoiceId}`, {
+            const res = await fetch(`${API_URL}/api/zatca/process/${invoiceId}`, {
                 method: "POST",
                 credentials: "include",
             });
@@ -76,8 +78,8 @@ export default function ZATCACompliancePage() {
                 title: "Success",
                 description: "Invoice processed for ZATCA compliance",
             });
-            queryClient.invalidateQueries({ queryKey: ["/api/zatca/compliance-status"] });
-            queryClient.invalidateQueries({ queryKey: ["/api/invoices"] });
+            queryClient.invalidateQueries({ queryKey: [`${API_URL}/api/zatca/compliance-status`] });
+            queryClient.invalidateQueries({ queryKey: [`${API_URL}/api/invoices`] });
         },
         onError: (error: any) => {
             toast({
@@ -91,7 +93,7 @@ export default function ZATCACompliancePage() {
     // Submit to ZATCA mutation
     const submitToZATCA = useMutation({
         mutationFn: async (invoiceId: number) => {
-            const res = await fetch(`/api/zatca/submit/${invoiceId}`, {
+            const res = await fetch(`${API_URL}/api/zatca/submit/${invoiceId}`, {
                 method: "POST",
                 credentials: "include",
             });
@@ -112,7 +114,7 @@ export default function ZATCACompliancePage() {
     // Validate VAT number mutation
     const validateVAT = useMutation({
         mutationFn: async (vatNumber: string) => {
-            const res = await fetch("/api/zatca/validate-vat", {
+            const res = await fetch(`${API_URL}/api/zatca/validate-vat`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -131,7 +133,7 @@ export default function ZATCACompliancePage() {
 
     // Download XML
     const handleDownloadXML = (invoiceId: number) => {
-        window.open(`/api/zatca/xml/${invoiceId}`, "_blank");
+        window.open(`${API_URL}/api/zatca/xml/${invoiceId}`, "_blank");
     };
 
     if (isLoading) {

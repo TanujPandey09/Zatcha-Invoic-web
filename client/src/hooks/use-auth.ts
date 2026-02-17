@@ -1,8 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type { User } from "@/lib/api"; // Assumes User type exported from schema
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 async function fetchUser(): Promise<User | null> {
-  const response = await fetch("/api/auth/me", {
+  const response = await fetch(`${API_URL}/auth/me`, {
     credentials: "include",
   });
 
@@ -19,7 +21,7 @@ async function fetchUser(): Promise<User | null> {
 }
 
 async function logout(): Promise<void> {
-  await fetch("/api/auth/logout", {
+  await fetch(`${API_URL}/auth/logout`, {
     method: "POST",
   });
 }
@@ -27,7 +29,7 @@ async function logout(): Promise<void> {
 export function useAuth() {
   const queryClient = useQueryClient();
   const { data: user, isLoading } = useQuery<User | null>({
-    queryKey: ["/api/auth/me"],
+    queryKey: [`${API_URL}/auth/me`],
     queryFn: fetchUser,
     retry: false,
     staleTime: 1000 * 60 * 5, // 5 minutes
@@ -36,7 +38,7 @@ export function useAuth() {
   const logoutMutation = useMutation({
     mutationFn: logout,
     onSuccess: () => {
-      queryClient.setQueryData(["/api/auth/me"], null);
+      queryClient.setQueryData([`${API_URL}/auth/me`], null);
     },
   });
 

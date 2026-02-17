@@ -3,6 +3,8 @@ import { api, buildUrl } from "@/lib/api";
 import { type InsertInvoice, type Invoice } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export function useInvoices(filters?: { status?: string; clientId?: number; startDate?: Date; endDate?: Date }) {
   // Convert dates to ISO strings if present
   const queryParams: any = {};
@@ -124,7 +126,7 @@ export function useDeleteInvoice() {
 
   return useMutation({
     mutationFn: async (id: number) => {
-      const res = await fetch(`/api/invoices/${id}`, {
+      const res = await fetch(`${API_URL}/invoices/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -158,7 +160,7 @@ export function useUpdateInvoice() {
 
   return useMutation({
     mutationFn: async ({ id, data }: { id: number; data: any }) => {
-      const res = await fetch(`/api/invoices/${id}`, {
+      const res = await fetch(`${API_URL}/invoices/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

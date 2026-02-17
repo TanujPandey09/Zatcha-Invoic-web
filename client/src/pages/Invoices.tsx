@@ -45,6 +45,8 @@ const invoiceFormSchema = z.object({
   })).min(1, "At least one item is required"),
 });
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function Invoices() {
   const navigate = useNavigate();
   const { t, isRTL } = useTranslation();
@@ -142,7 +144,7 @@ export default function Invoices() {
 
   // ===== DOWNLOAD PDF =====
   const handleDownloadPDF = (invoiceId: number) => {
-    window.open(`/api/invoices/${invoiceId}/pdf`, "_blank");
+    window.open(`${API_URL}/invoices/${invoiceId}/pdf`, "_blank");
   };
 
   const handleStatusChange = (id: number, newStatus: "draft" | "sent" | "paid" | "cancelled") => {

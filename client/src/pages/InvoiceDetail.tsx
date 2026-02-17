@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 
+const API_URL = import.meta.env.VITE_API_URL;
 export default function InvoiceDetail() {
     const { id } = useParams();
 
@@ -21,10 +22,11 @@ export default function InvoiceDetail() {
     const { data: invoice, isLoading } = useInvoice(Number(id));
 
     // ✅ FIX: Sirf tab API call karo jab invoice mein QR stored nahi hai
+
     const { data: qrData } = useQuery({
         queryKey: [`/api/zatca/qrcode/${id}`],
         queryFn: async () => {
-            const res = await fetch(`/api/zatca/qrcode/${id}`, {
+            const res = await fetch(`${API_URL}/zatca/qrcode/${id}`, {
                 credentials: "include",
             });
             return res.json();
@@ -48,7 +50,7 @@ export default function InvoiceDetail() {
     };
 
     const handleDownloadXML = () => {
-        window.open(`/api/zatca/xml/${id}`, "_blank");
+        window.open(`${API_URL}/zatca/xml/${id}`, "_blank");
     };
 
     return (

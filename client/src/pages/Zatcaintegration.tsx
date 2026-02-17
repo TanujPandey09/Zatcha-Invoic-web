@@ -19,6 +19,8 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function ZATCAIntegrationPage() {
     const { toast } = useToast();
     const queryClient = useQueryClient();
@@ -34,7 +36,7 @@ export default function ZATCAIntegrationPage() {
     // ✅ Fixed: Changed from useQuery to useMutation and correct endpoint
     const testConnection = useMutation({
         mutationFn: async () => {
-            const res = await fetch("/api/zatca/integration/test", {
+            const res = await fetch(`${API_URL}/api/zatca/integration/test`, {
                 method: "POST", // ✅ Fixed: Changed to POST
                 credentials: "include",
             });
@@ -45,9 +47,9 @@ export default function ZATCAIntegrationPage() {
 
     // Get integration status
     const { data: integrationStatus } = useQuery({
-        queryKey: ["/api/zatca/integration/status"],
+        queryKey: [`${API_URL}/api/zatca/integration/status`],
         queryFn: async () => {
-            const res = await fetch("/api/zatca/integration/status", {
+            const res = await fetch(`${API_URL}/api/zatca/integration/status`, {
                 credentials: "include",
             });
             return res.json();
@@ -57,7 +59,7 @@ export default function ZATCAIntegrationPage() {
     // Generate CSR
     const generateCSRMutation = useMutation({
         mutationFn: async (data: any) => {
-            const res = await fetch("/api/zatca/integration/generate-csr", {
+            const res = await fetch(`${API_URL}/api/zatca/integration/generate-csr`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -87,7 +89,7 @@ export default function ZATCAIntegrationPage() {
     // Compliance check
     const complianceCheckMutation = useMutation({
         mutationFn: async () => {
-            const res = await fetch("/api/zatca/integration/compliance-check", {
+            const res = await fetch(`${API_URL}/api/zatca/integration/compliance-check`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -109,7 +111,7 @@ export default function ZATCAIntegrationPage() {
                 description: "Next: Get Production CSID",
             });
             queryClient.invalidateQueries({
-                queryKey: ["/api/zatca/integration/status"],
+                queryKey: [`${API_URL}/api/zatca/integration/status`],
             });
         },
         onError: (error: Error) => {
@@ -124,7 +126,7 @@ export default function ZATCAIntegrationPage() {
     // ✅ NEW: Get Production CSID
     const getProductionCSIDMutation = useMutation({
         mutationFn: async () => {
-            const res = await fetch("/api/zatca/integration/production-csid", {
+            const res = await fetch(`${API_URL}/api/zatca/integration/production-csid`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -145,7 +147,7 @@ export default function ZATCAIntegrationPage() {
                 description: "You can now submit invoices to ZATCA",
             });
             queryClient.invalidateQueries({
-                queryKey: ["/api/zatca/integration/status"],
+                queryKey: [`${API_URL}/api/zatca/integration/status`],
             });
         },
         onError: (error: Error) => {

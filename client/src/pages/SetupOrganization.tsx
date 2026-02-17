@@ -11,6 +11,8 @@ import { Building2, FileText, MapPin, Hash, Phone, ShieldCheck } from "lucide-re
 import { useTranslation } from "@/i18n/i18n";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function OrganizationSetup() {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
@@ -35,7 +37,7 @@ export default function OrganizationSetup() {
 
             console.log("🏢 Creating organization:", formData);
 
-            const res = await fetch("/api/organization", {
+            const res = await fetch(`${API_URL}/api/organization`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -56,7 +58,7 @@ export default function OrganizationSetup() {
             });
 
             // Refresh auth state to get updated organization
-            await queryClient.invalidateQueries({ queryKey: ["/api/auth/me"] });
+            await queryClient.invalidateQueries({ queryKey: [`${API_URL}/api/auth/me`] });
 
             // Redirect to dashboard
             navigate("/dashboard");

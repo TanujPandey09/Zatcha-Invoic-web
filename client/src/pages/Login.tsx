@@ -12,6 +12,8 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { useTranslation } from "@/i18n/i18n";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const GoogleIcon = () => (
   <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
     <path
@@ -69,8 +71,8 @@ export default function AuthPage() {
       setLoading(true);
 
       const endpoint = isRegister
-        ? "/api/auth/register"
-        : "/api/auth/login";
+        ? `${API_URL}/auth/register`
+        : `${API_URL}/auth/login`;
 
       const res = await fetch(endpoint, {
         method: "POST",
@@ -91,7 +93,7 @@ export default function AuthPage() {
           : "Successfully signed in to your dashboard.",
       });
 
-      await queryClient.refetchQueries({ queryKey: ["/api/auth/me"] });
+      await queryClient.refetchQueries({ queryKey: [`${API_URL}/auth/me`] });
 
       setTimeout(() => {
         navigate("/dashboard");
@@ -108,7 +110,7 @@ export default function AuthPage() {
   };
 
   const handleSSO = (provider: string) => {
-    window.location.href = `/api/auth/${provider}`;
+    window.location.href = `${API_URL}/auth/${provider}`;
   };
 
   return (

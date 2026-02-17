@@ -12,6 +12,8 @@ import { useAuth } from "@/hooks/use-auth";
 import { AlertCircle, CheckCircle2, Shield, Key, Mail, Apple } from "lucide-react";
 import { useEffect } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const orgFormSchema = z.object({
   name: z.string().min(2, "Name is required"),
   vatNumber: z.string().optional(),
@@ -353,7 +355,7 @@ export default function Settings() {
                         <CheckCircle2 className="w-3 h-3" /> Linked
                       </span>
                     ) : (
-                      <Button variant="outline" size="sm" onClick={() => window.location.href = '/api/auth/google'}>Connect</Button>
+                      <Button variant="outline" size="sm" onClick={() => window.location.href = `${API_URL}/auth/google`}>Connect</Button>
                     )
                     }
                   </div>
@@ -378,7 +380,7 @@ export default function Settings() {
                         <CheckCircle2 className="w-3 h-3" /> Linked
                       </span>
                     ) : (
-                      <Button variant="outline" size="sm" onClick={() => window.location.href = '/api/auth/microsoft'}>Connect</Button>
+                      <Button variant="outline" size="sm" onClick={() => window.location.href = `${API_URL}/auth/microsoft`}>Connect</Button>
                     )}
                   </div>
 

@@ -3,6 +3,8 @@ import { api, buildUrl } from "../lib/api";
 import { type Client } from "@/lib/api"; // Assumes Client type exported from schema
 import { useToast } from "@/hooks/use-toast";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 // Need to match insertClientSchema type
 type ClientInput = Omit<Client, "id" | "createdAt" | "organizationId">;
 
