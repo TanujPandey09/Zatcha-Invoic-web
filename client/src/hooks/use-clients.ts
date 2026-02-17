@@ -1,9 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { api, buildUrl } from "../lib/api";
+import { api, authFetch, buildUrl } from "../lib/api";
 import { type Client } from "@/lib/api"; // Assumes Client type exported from schema
 import { useToast } from "@/hooks/use-toast";
 
-const API_URL = import.meta.env.VITE_API_URL;
+
 
 // Need to match insertClientSchema type
 type ClientInput = Omit<Client, "id" | "createdAt" | "organizationId">;
@@ -12,12 +12,12 @@ export function useClients() {
   return useQuery({
     queryKey: [api.clients.list.path],
     queryFn: async () => {
-      const res = await fetch(api.clients.list.path, {
+      const res = await authFetch(api.clients.list.path, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${localStorage.getItem('token')}`
         },
-        credentials: "include"
+
       });
       if (!res.ok) throw new Error("Failed to fetch clients");
       return api.clients.list.responses[200].parse(await res.json());
@@ -31,7 +31,7 @@ export function useCreateClient() {
 
   return useMutation({
     mutationFn: async (data: ClientInput) => {
-      const res = await fetch(api.clients.create.path, {
+      const res = await authFetch(api.clients.create.path, {
         method: api.clients.create.method,
         headers: {
           "Content-Type": "application/json",

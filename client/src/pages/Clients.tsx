@@ -20,7 +20,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useTranslation } from "@/i18n/i18n";
 
-const API_URL = import.meta.env.VITE_API_URL;
 
 const clientFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
